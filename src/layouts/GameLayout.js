@@ -18,13 +18,28 @@ class GameLayout extends React.Component {
 
     this.state = {
       cells: Array(9).fill(null),
-      currentPlayer: "player 1"
+      currentPlayer: "player 1",
+      nextPlayer: "player 2"
     };
+  }
+
+  handleCellClick(index) {
+    const cells = this.state.cells
+    cells[index] = this.state.currentPlayer === "player 1" ? "X" : "O"
+
+    const currentPlayer = this.state.nextPlayer
+    const nextPlayer = this.state.currentPlayer
+    this.setState({
+      cells : cells,
+      currentPlayer : currentPlayer,
+      nextPlayer : nextPlayer
+    })
   }
 
   // getDerivedStateFromProps is called before every render,
   // use it to infer new state values from props or state changes.
   static getDerivedStateFromProps(props, state) {
+    
     return state;
   }
 
@@ -32,10 +47,9 @@ class GameLayout extends React.Component {
     return (
       <div
         style={gameLayoutStyle}
-        onClick={() => this.setState({ currentPlayer: "toto" })}
       >
-        <GameInfo />
-        <Board />
+        <GameInfo currentPlayer={this.state.currentPlayer} />
+        <Board cells={this.state.cells} onClickCell={(index) => { this.handleCellClick(index) }}/>
       </div>
     );
   }
