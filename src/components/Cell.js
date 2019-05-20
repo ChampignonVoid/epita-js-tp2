@@ -2,8 +2,6 @@ import React from "react";
 
 const cellStyle = {
   display: "block",
-  width: "200px",
-  height: "200px",
   border: "1px solid #333",
   outline: "none",
   textAlign: "center",
@@ -33,7 +31,7 @@ class Cell extends React.Component {
   }
 
   render() {
-    return <div style={{...cellStyle, backgroundColor : this.state.mouseOver ? "red" : "white"}}
+    return <div style={{...cellStyle, ...this.props.customStyle, backgroundColor : this.state.mouseOver ? "red" : "white"}}
                 onMouseOver={e => this.handleMouseHover(e)}
                 onMouseOut={e => this.handleMouseOut(e)}
                 onClick={e => !this.props.cellState ? this.props.onClick(e) : () => {}}>{this.getValueFromCellState()}</div>;
